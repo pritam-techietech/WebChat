@@ -1,7 +1,21 @@
 import React from "react";
 import { FaKey } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { LoginBodyInterface } from "../interfaces/LoginBodyInterface";
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+  const onSubmit = (data: LoginBodyInterface) => console.log(data);
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div className="w-full bg-purple-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30 border border-gray-100 p-6">
@@ -9,21 +23,46 @@ const LoginPage = () => {
           Login
           <span className="text-green-400"> WebChat</span>
         </h1>
-        <form className="my-4">
+        <form className="my-4" onSubmit={handleSubmit(onSubmit)}>
           <label className="input input-bordered flex items-center gap-2">
-            <CgProfile/>
-            <input type="text" className="grow" placeholder="Username" />
+            <CgProfile />
+            <input
+              type="text"
+              className="grow"
+              placeholder="Username"
+              {...register("username", { required: true })}
+            />
           </label>
+          {errors.username?.type === "required" && (
+            <p role="alert" className="ms-2 text-red-400">
+              * Username is required
+            </p>
+          )}
           <label className="input mt-1 input-bordered flex items-center gap-2">
-            <FaKey/>
-            <input type="password" className="grow" placeholder="Password" />
+            <FaKey />
+            <input
+              type="password"
+              className="grow"
+              placeholder="Password"
+              {...register("password", { required: true })}
+            />
           </label>
+          {errors.password?.type === "required" && (
+            <p role="alert" className="ms-2 text-red-400">
+              * Password is required
+            </p>
+          )}
           <div className="flex">
             <button className="btn btn-success mt-2 mx-auto w-1/2 text-blue-800 text-xl">
               Login
             </button>
           </div>
-          <a href="#" className="text-sm mt-4 hover:underline hover:text-red-400">Don't have an account?</a>
+          <Link
+            to="/signup"
+            className="text-sm mt-4 hover:underline hover:text-red-400"
+          >
+            Don't have an account?
+          </Link>
         </form>
       </div>
     </div>

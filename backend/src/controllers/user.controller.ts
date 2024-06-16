@@ -9,7 +9,6 @@ interface signupBody {
   username?: string;
   fullName?: string;
   password?: string;
-  confirmPassword?: string;
   gender?: string;
 }
 
@@ -31,12 +30,9 @@ export const signup: RequestHandler<
   unknown
 > = async (req, res, next) => {
   try {
-    const { username, fullName, password, confirmPassword, gender } = req.body;
-    if (!username || !fullName || !password || !confirmPassword || !gender) {
+    const { username, fullName, password, gender } = req.body;
+    if (!username || !fullName || !password || !gender) {
       throw createHttpError(400, "Parameters missing");
-    }
-    if (password !== confirmPassword) {
-      throw createHttpError(401, "password did not match. Try again...");
     }
     const existingUsername = await UserModel.findOne({
       username: username,
