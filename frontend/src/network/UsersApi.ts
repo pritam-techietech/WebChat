@@ -1,4 +1,5 @@
 import { ConflictError, UnauthorizedError } from "../errors/httperrors";
+import { LoginBodyInterface } from "../interfaces/LoginBodyInterface";
 import { SignupBodyInterface } from "../interfaces/SignupBodyInterface";
 import { UserModel } from "../models/UserModel";
 
@@ -36,3 +37,33 @@ export async function fetchData(input: RequestInfo, init?: RequestInit) {
     });
     return response.json();
   }
+
+  export async function loginUser(
+    credentials: LoginBodyInterface
+  ): Promise<UserModel> {
+    const response = await fetchData("/api/user/login", {
+      method: "POST",
+      body: JSON.stringify(credentials),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  }
+
+  export async function logoutUser(){
+    const response = await fetchData("/api/user/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  }
+
+  export async function getUsersForSidebar(){
+    const response = await fetchData("/api/user/");
+    return response.json();
+  }
+
+  

@@ -14,7 +14,7 @@ const SignupPage = () => {
       confirmPassword: "",
     },
   });
-  const { signup } = useSignup();
+  const { loading, signup } = useSignup();
   const onSubmit = async (data: SignupBodyInterface) => {
     console.log("signup clicked");
     console.log(data);
@@ -106,8 +106,9 @@ const SignupPage = () => {
             <button
               type="submit"
               className="btn btn-success mt-2 mx-auto w-1/2 text-blue-800 text-xl"
+              disabled={loading}
             >
-              Signup
+              {loading? <span className="loading loading-spinner"></span> : "Signup"}
             </button>
           </div>
         </form>

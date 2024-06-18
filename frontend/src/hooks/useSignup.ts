@@ -2,10 +2,12 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SignupBodyInterface } from '../interfaces/SignupBodyInterface';
 import { signupUser } from '../network/UsersApi';
+import { useUserContext } from '../context/UserContext';
 
 const useSignup = () => {
  
     const [loading, setLoading] = useState(false);
+    const {setUser} = useUserContext();
     const signup = async (data:SignupBodyInterface)=> {
         const isSuccess = handleInputErrors(data);
         if(!isSuccess){
@@ -15,6 +17,8 @@ const useSignup = () => {
         try {
             const res = await signupUser(data);
             console.log(res);
+            localStorage.setItem('chat-user', JSON.stringify(res));
+            setUser(JSON.stringify(res));
         } catch (error) {
             toast.error(String(error));
         } finally {

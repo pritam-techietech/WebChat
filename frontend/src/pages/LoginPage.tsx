@@ -4,6 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { LoginBodyInterface } from "../interfaces/LoginBodyInterface";
+import useLogin from "../hooks/useLogin";
 const LoginPage = () => {
   const {
     register,
@@ -15,7 +16,12 @@ const LoginPage = () => {
       password: "",
     },
   });
-  const onSubmit = (data: LoginBodyInterface) => console.log(data);
+  const {loading,login} = useLogin();
+  const onSubmit = async (data: LoginBodyInterface) => {
+    console.log(data);
+    await login(data);
+
+  }
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div className="w-full bg-purple-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30 border border-gray-100 p-6">
@@ -53,8 +59,11 @@ const LoginPage = () => {
             </p>
           )}
           <div className="flex">
-            <button className="btn btn-success mt-2 mx-auto w-1/2 text-blue-800 text-xl">
-              Login
+            <button 
+            className="btn btn-success mt-2 mx-auto w-1/2 text-blue-800 text-xl"
+            disabled = {loading}
+            >
+              {loading ? <span className="loading loading-spinner"/> : "Login"}
             </button>
           </div>
           <Link
