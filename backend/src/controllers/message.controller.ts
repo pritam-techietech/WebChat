@@ -15,26 +15,26 @@ export const sendMessage: RequestHandler<
   unknown
 > = async (req, res, next) => {
   try {
-    const { message, loggedInUserId, oppositeUserId } = req.body;
+    const { message, senderId, receiverId } = req.body;
     // const { receiverId } = req.params;
-    console.log("senderId : " + loggedInUserId);
-    console.log("receiverId : " + oppositeUserId);
+    console.log("senderId : " + senderId );
+    console.log("receiverId : " + receiverId);
     console.log("message : " + message);
-    const user = await User.findById(oppositeUserId).select("-password");
+    const user = await User.findById(receiverId).select("-password");
     if (!user) {
       throw createHttpError(401, "Other user not found");
     }
     let conversation = await ConversationModel.findOne({
-      participants: { $all: [loggedInUserId, oppositeUserId] },
+      participants: { $all: [senderId, receiverId] },
     });
     if (!conversation) {
       conversation = await ConversationModel.create({
-        participants: [loggedInUserId, oppositeUserId],
+        participants: [senderId, receiverId],
       });
     }
     const newMessage = new MessageModel({
-      senderId: loggedInUserId,
-      receiverId: oppositeUserId,
+      senderId: senderId,
+      receiverId: receiverId,
       message,
     });
     if (newMessage) {
@@ -60,13 +60,13 @@ export const getMessages: RequestHandler<
   unknown
 > = async (req, res, next) => {
   try {
-    const { loggedInUserId, oppositeUserId } = req.body;
-    const user = await User.findById(oppositeUserId).select("-password");
+    const { senderId, receiverId } = req.body;
+    const user = await User.findById(receiverId).select("-password");
     if (!user) {
       throw createHttpError(401, "Other user not found");
     }
     const conversation = await ConversationModel.findOne({
-      participants: { $all: [loggedInUserId, oppositeUserId] },
+      participants: { $all: [senderId, receiverId] },
     }).populate("messages");
     if (!conversation) {
       res.status(200).json([]);

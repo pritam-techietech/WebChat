@@ -14,8 +14,8 @@ interface signupBody {
 
 export const getUsersForSidebar: RequestHandler<unknown, unknown, messageReqBodyInterface, unknown> = async (req, res, next) => {
   try {
-    const {loggedInUserId} = req.body;
-    const users = await UserModel.find({_id:{$ne:loggedInUserId}}).select("-password").exec(); // Get all users excepot the loggedin user
+    const {senderId} = req.body;
+    const users = await UserModel.find({_id:{$ne:senderId}}).select("-password").exec(); // Get all users excepot the loggedin user
     res.status(200).json(users);
   } catch (error) {
     console.log(error);

@@ -1,6 +1,7 @@
 export interface UserModel {
     username: string;
-    fullname: string;
+    fullName: string;
     gender: string;
     _id: string;
+    profilePic: string;
 }

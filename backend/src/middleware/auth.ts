@@ -29,7 +29,7 @@ export const requireAuth: RequestHandler<
       throw createHttpError(401, "user not found");
     }
     // req.body = {senderId : user._id};
-    req.body.loggedInUserId = user._id;
+    req.body.senderId = user._id;
     next();
   } catch (error) {
     console.error(error);

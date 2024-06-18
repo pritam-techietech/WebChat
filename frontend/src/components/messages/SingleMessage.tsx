@@ -1,22 +1,24 @@
 import React from "react";
-
-const SingleMessage = () => {
+import { MessageModel } from "../../models/MessageModel";
+import { useUserContext } from "../../context/UserContext";
+import { UserModel } from "../../models/UserModel";
+import { formatDate } from "../../utils/formatDate";
+interface SingleMessageProps{
+  data : MessageModel;
+}
+const SingleMessage = ({data}: SingleMessageProps) => {
+  const {user} = useUserContext();
+  const userData:UserModel = JSON.parse(user!);
+  const userId = userData._id;
+  const ifUserSent = data.senderId === userId;
   return (
     <div>
-      {/** Opposite user */}
-      <div className="chat chat-start">
-        <div className="chat-bubble chat-bubble-info">
-          That's never been done in the history of the Jedi. It's insulting!
+      <div className={`chat ${ifUserSent ? "chat-end" : "chat-start"}`}>
+        <div className={`chat-bubble ${ifUserSent ? "chat-bubble-success" : "chat-bubble-info"}`}>
+          {data.message}
         </div>
-        <div className="chat-footer text-white opacity-80"><time>10:10</time></div>
+        <div className="chat-footer text-white opacity-80 text-xs"><time>{formatDate(data.createdAt)}</time></div>
       </div>
-
-      {/** Loggedin user */}
-      <div className="chat chat-end">
-        <div className="chat-bubble chat-bubble-accent">Calm down, Anakin.</div>
-        <div className="chat-footer text-white opacity-80"><time className="">10:10</time></div>
-      </div>
-
     </div>
   );
 };
