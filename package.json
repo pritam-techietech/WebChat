@@ -1,0 +1,14 @@
+{
+  "name": "webchat",
+  "version": "1.0.0",
+  "description": "* Lang - Typescript\r * Backend - Express, JWT token.\r * Database - MongoDB using Mongoose.\r * Frontend - React, Redux, React-hook-form, Tailwind CSS with DaisyUI, React-hot-toast",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd backend && npm install && tsc && cd../frontend && npm install && npm run build",
+    "start": "cd backend && node ./dist/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
