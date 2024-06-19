@@ -1,52 +1,56 @@
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { SignupBodyInterface } from '../interfaces/SignupBodyInterface';
-import { signupUser } from '../network/UsersApi';
-import { useUserContext } from '../context/UserContext';
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { SignupBodyInterface } from "../interfaces/SignupBodyInterface";
+import { signupUser } from "../network/UsersApi";
+import { useUserContext } from "../context/UserContext";
 
 const useSignup = () => {
- 
-    const [loading, setLoading] = useState(false);
-    const {setUser} = useUserContext();
-    const signup = async (data:SignupBodyInterface)=> {
-        const isSuccess = handleInputErrors(data);
-        if(!isSuccess){
-            return;
-        }
-        setLoading(true);
-        try {
-            const res = await signupUser(data);
-            console.log(res);
-            localStorage.setItem('chat-user', JSON.stringify(res));
-            setUser(JSON.stringify(res));
-        } catch (error) {
-            toast.error(String(error));
-        } finally {
-            setLoading(false);
-        }
-
+  const [loading, setLoading] = useState(false);
+  const { setUser } = useUserContext();
+  const signup = async (data: SignupBodyInterface) => {
+    const isSuccess = handleInputErrors(data);
+    if (!isSuccess) {
+      return;
     }
-
-    const handleInputErrors = ({username, fullName, gender, password, confirmPassword}:SignupBodyInterface)=>{
-        if(!username || !fullName || !gender || !password || !confirmPassword){
-            toast.error("Please fill in all required fields");
-            return false;
-        }
-        if(password!==confirmPassword){
-            toast.error("Password did not match. Try again...");
-            return false;
-        }
-        if(password.length < 6){
-            toast.error("Password must be at least 6 characters long");
-            return false;
-        }
-        return true;
+    setLoading(true);
+    try {
+      const res = await signupUser(data);
+      console.log(res);
+      localStorage.setItem("chat-user", JSON.stringify(res));
+      setUser(res);
+    } catch (error) {
+      toast.error(String(error));
+    } finally {
+      setLoading(false);
     }
+  };
 
-    return {
-        signup,
-        loading
+  const handleInputErrors = ({
+    username,
+    fullName,
+    gender,
+    password,
+    confirmPassword,
+  }: SignupBodyInterface) => {
+    if (!username || !fullName || !gender || !password || !confirmPassword) {
+      toast.error("Please fill in all required fields");
+      return false;
     }
-}
+    if (password !== confirmPassword) {
+      toast.error("Password did not match. Try again...");
+      return false;
+    }
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return false;
+    }
+    return true;
+  };
 
-export default useSignup
+  return {
+    signup,
+    loading,
+  };
+};
+
+export default useSignup;

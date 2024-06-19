@@ -6,13 +6,14 @@ import useConversation from "../zustand/useConversation";
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
   const { getSelectedConversation, setMessages, messages } = useConversation();
+  const getSelConv = getSelectedConversation();
 
   useEffect(()=>{
     const getMessages = async () => {
         setLoading(true);
         try {
           const messages = await GetMessages({
-            receiverId: getSelectedConversation()?._id,
+            receiverId: getSelConv?._id,
           });
           console.log(messages);
           setMessages(messages);
@@ -23,7 +24,7 @@ const useGetMessages = () => {
         }
       };
     getMessages();
-  },[getSelectedConversation()])
+  },[getSelConv, setMessages])
   return {
     loading,
     messages,

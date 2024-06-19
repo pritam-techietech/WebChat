@@ -1,10 +1,9 @@
-import React from "react";
-import { FaKey } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { LoginBodyInterface } from "../interfaces/LoginBodyInterface";
+import { CgProfile } from "react-icons/cg";
+import { FaKey } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
+import { LoginBodyInterface } from "../interfaces/LoginBodyInterface";
 const LoginPage = () => {
   const {
     register,

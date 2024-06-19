@@ -1,4 +1,5 @@
 // import useGetMessages from "../../hooks/useGetMessages";
+import { useSocketContext } from "../../context/SocketContext";
 import { UserModel } from "../../models/UserModel";
 import useConversation from "../../zustand/useConversation";
 interface SingleConversationProps {
@@ -12,6 +13,8 @@ const SingleConversation = ({ data }: SingleConversationProps) => {
   } = useConversation();
   // const {getMessages} = useGetMessages();
   const isSelected = selectedConversation?._id === data._id;
+  const {onlineUsers} = useSocketContext();
+  const isOnline  = onlineUsers.includes(data._id);
   return (
     <>
       <div
@@ -25,7 +28,7 @@ const SingleConversation = ({ data }: SingleConversationProps) => {
           // getMessages();
         }}
       >
-        <div className="avatar online">
+        <div className={`avatar ${isOnline && 'online'}`}>
           <div className="w-12 rounded-full">
             <img src={data.profilePic} alt="avatar" />
           </div>

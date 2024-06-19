@@ -4,6 +4,7 @@ import ConversationModel from "../models/conversation.model";
 import MessageModel from "../models/message.model";
 import { messageReqBodyInterface } from "../interface/messageReqBody.interface";
 import User from "../models/user.model";
+import { getReceiverSocketId, io } from "../socket/socket";
 
 // interface sendMessageParams {
 //   receiverId?: string;
@@ -40,12 +41,20 @@ export const sendMessage: RequestHandler<
     if (newMessage) {
       conversation.messages.push(newMessage._id);
     }
+
+
+
     // This will run one by one
     // await conversation.save();
     // await newMessage.save();
 
     // This will run parellely
     await Promise.all([conversation.save(), newMessage.save()]);
+
+    const receiverSocketId = getReceiverSocketId(receiverId as unknown as string);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
     res.status(200).json(newMessage);
   } catch (error) {
     console.error(error);

@@ -1,13 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import SingleMessage from "./SingleMessage";
 // import useConversation from '../../zustand/useConversation'
 import useGetMessages from "../../hooks/useGetMessages";
+import useListenMessages from "../../hooks/useListenMessages";
 import MessagesSkeleton from "./MessagesSkeleton";
 
 const Messages = () => {
   // const {messages} = useConversation();
   const { loading, messages } = useGetMessages();
   const lastMessageRef = useRef<HTMLDivElement>(null);
+  useListenMessages();
   useEffect(() => {
     setTimeout(() => {
       if (lastMessageRef.current) {

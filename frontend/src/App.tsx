@@ -5,8 +5,6 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { Toaster } from "react-hot-toast";
 import { useUserContext } from "./context/UserContext";
-// import LoginPage from "./pages/LoginPage";
-// import SignupPage from "./pages/SignupPage";
 
 function App() {
   const {user} = useUserContext();

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { FaSearch } from "react-icons/fa";
 import useGetConversations from "../../hooks/useGetConversations";

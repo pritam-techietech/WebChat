@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { LoginBodyInterface } from '../interfaces/LoginBodyInterface';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { loginUser } from '../network/UsersApi';
 import { useUserContext } from '../context/UserContext';
+import { LoginBodyInterface } from '../interfaces/LoginBodyInterface';
 import { UserModel } from '../models/UserModel';
+import { loginUser } from '../network/UsersApi';
 
 const useLogin = () => {
   
@@ -19,7 +19,7 @@ const useLogin = () => {
             const res:UserModel = await loginUser(data);
             console.log(res);
             localStorage.setItem('chat-user', JSON.stringify(res));
-            setUser(JSON.stringify(res));
+            setUser(res);
         } catch (error) {
             toast.error(String(error));
         } finally{

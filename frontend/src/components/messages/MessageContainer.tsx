@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import MessageHeader from "./MessageHeader";
-import Messages from "./Messages";
-import MessageInput from "./MessageInput";
-import NoChatSelected from "./NoChatSelected";
+import { useEffect } from "react";
 import useConversation from "../../zustand/useConversation";
+import MessageHeader from "./MessageHeader";
+import MessageInput from "./MessageInput";
+import Messages from "./Messages";
+import NoChatSelected from "./NoChatSelected";
 
 const MessageContainer = () => {
   // const showNoChat = false;

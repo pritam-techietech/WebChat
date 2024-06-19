@@ -12,7 +12,7 @@ const MessageInput = () => {
   const { user } = useUserContext();
   const handleSubmit = (e:FormEvent) => {
     e.preventDefault();
-    const loggedUserId:UserModel = JSON.parse(user!);
+    const loggedUserId:UserModel = (user!);
     console.log("senderId : " + loggedUserId._id);
     console.log("receiverId : " + selectedConversation!._id);
     console.log("message : " + message);

@@ -1,6 +1,5 @@
-import React from "react";
-import { MessageModel } from "../../models/MessageModel";
 import { useUserContext } from "../../context/UserContext";
+import { MessageModel } from "../../models/MessageModel";
 import { UserModel } from "../../models/UserModel";
 import { formatDate } from "../../utils/formatDate";
 interface SingleMessageProps{
@@ -8,7 +7,7 @@ interface SingleMessageProps{
 }
 const SingleMessage = ({data}: SingleMessageProps) => {
   const {user} = useUserContext();
-  const userData:UserModel = JSON.parse(user!);
+  const userData:UserModel = (user!);
   const userId = userData._id;
   const ifUserSent = data.senderId === userId;
   return (

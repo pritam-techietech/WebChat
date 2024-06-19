@@ -1,6 +1,5 @@
-import React from "react";
-import SingleConversation from "./SingleConversation";
 import useGetConversations from "../../hooks/useGetConversations";
+import SingleConversation from "./SingleConversation";
 
 const Conversations = () => {
   const { loading, conversations } = useGetConversations();
