@@ -26,7 +26,7 @@ export const SocketContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     if (user) {
-      const socket = io("http://localhost:5000",{
+      const socket = io("https://webchat-ewm8.onrender.com",{
         query: {
           userId: user._id,
         },
