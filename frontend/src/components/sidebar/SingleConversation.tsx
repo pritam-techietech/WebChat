@@ -9,7 +9,7 @@ const SingleConversation = ({ data }: SingleConversationProps) => {
   const {
     selectedConversation,
     setSelectedConversation,
-    getSelectedConversation,
+    // getSelectedConversation,
   } = useConversation();
   // const {getMessages} = useGetMessages();
   const isSelected = selectedConversation?._id === data._id;
@@ -24,7 +24,7 @@ const SingleConversation = ({ data }: SingleConversationProps) => {
         onClick={() => {
           setSelectedConversation(data);
 
-          console.log(getSelectedConversation());
+          // console.log(getSelectedConversation());
           // getMessages();
         }}
       >
