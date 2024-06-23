@@ -1,4 +1,3 @@
-import React from "react";
 import { useUserContext } from "../../context/UserContext";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
