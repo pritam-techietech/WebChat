@@ -8,8 +8,8 @@ const useLogout = () => {
     const logout = async() => {
         setLoading(true);
         try {
-            const res = await logoutUser();
-            console.log(res);
+            await logoutUser();
+            // console.log(res);
             localStorage.removeItem('chat-user');
             setUser(null);
         } catch (error) {

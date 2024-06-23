@@ -15,7 +15,7 @@ const useGetMessages = () => {
           const messages = await GetMessages({
             receiverId: getSelConv?._id,
           });
-          console.log(messages);
+          // console.log(messages);
           setMessages(messages);
         } catch (error) {
           toast.error(String(error));

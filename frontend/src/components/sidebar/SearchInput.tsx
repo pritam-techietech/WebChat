@@ -6,36 +6,40 @@ import useConversation from "../../zustand/useConversation";
 
 const SearchInput = () => {
   const [search, setSearch] = useState("");
-  const {conversations} = useGetConversations();
-  const {setSelectedConversation} = useConversation();
+  const { conversations } = useGetConversations();
+  const { setSelectedConversation } = useConversation();
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     if (!search) return;
-    if (search.length < 3){
+    if (search.length < 3) {
       toast.error("Atleast 3 characters are required");
       return;
     }
-    const conversation = conversations.find(c => c.fullName.toLowerCase().includes(search.toLowerCase()))
-    if(conversation){
+    const conversation = conversations.find((c) =>
+      c.fullName.toLowerCase().includes(search.toLowerCase())
+    );
+    if (conversation) {
       setSelectedConversation(conversation);
       setSearch("");
-    } else{
+    } else {
       toast.error("No conversation found");
       setSearch("");
     }
-
   };
   return (
     <form className="flex items-center gap-2" onSubmit={handleSearch}>
       <input
         type="text"
         placeholder="Search here"
-        className="input input-bordered rounded-full"
+        className="input input-bordered rounded-lg h-8 grow"
         value={search}
-        onChange={(e)=>setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
       />
-      <button type="submit" className="btn btn-circle bg-sky-500 text-white">
-        <FaSearch />
+      <button
+        type="submit"
+        className="btn btn-circle bg-sky-500 text-white h-8 w-8 min-h-8"
+      >
+        <FaSearch className="h-6" />
       </button>
     </form>
   );

@@ -5,6 +5,7 @@ import { UserModel } from "../models/UserModel";
 const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState<UserModel[]>([]);
+  // console.log("Conversation state changed");
 
   useEffect(() => {
     const getConversations = async () => {
@@ -19,6 +20,7 @@ const useGetConversations = () => {
   return {
     loading,
     conversations,
+    setConversations,
   };
 };
 

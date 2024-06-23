@@ -13,8 +13,8 @@ const SingleConversation = ({ data }: SingleConversationProps) => {
   } = useConversation();
   // const {getMessages} = useGetMessages();
   const isSelected = selectedConversation?._id === data._id;
-  const {onlineUsers} = useSocketContext();
-  const isOnline  = onlineUsers.includes(data._id);
+  const { onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes(data._id);
   return (
     <>
       <div
@@ -28,18 +28,18 @@ const SingleConversation = ({ data }: SingleConversationProps) => {
           // getMessages();
         }}
       >
-        <div className={`avatar ${isOnline && 'online'}`}>
+        <div className={`avatar ${isOnline && "online"}`}>
           <div className="w-12 rounded-full">
             <img src={data.profilePic} alt="avatar" />
           </div>
         </div>
         <div className="flex flex-col flex-1">
           <div className="flex gap-3 justify-between">
-            <p className="font-bold">{data.fullName}</p>
+            <p className="font-bold text-white">{data.fullName}</p>
           </div>
         </div>
       </div>
-      <div className="divider my-0 py-0 h-1" />
+      <div className="divider my-0 py-0 h-[1px] bg-white" />
     </>
   );
 };
