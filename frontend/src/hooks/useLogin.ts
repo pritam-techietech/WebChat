@@ -17,7 +17,7 @@ const useLogin = () => {
         setLoading(true);
         try {
             const res:UserModel = await loginUser(data);
-            console.log(res);
+            // console.log(res);
             localStorage.setItem('chat-user', JSON.stringify(res));
             setUser(res);
         } catch (error) {

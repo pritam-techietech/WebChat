@@ -18,9 +18,9 @@ export const sendMessage: RequestHandler<
   try {
     const { message, senderId, receiverId } = req.body;
     // const { receiverId } = req.params;
-    console.log("senderId : " + senderId );
-    console.log("receiverId : " + receiverId);
-    console.log("message : " + message);
+    // console.log("senderId : " + senderId );
+    // console.log("receiverId : " + receiverId);
+    // console.log("message : " + message);
     const user = await User.findById(receiverId).select("-password");
     if (!user) {
       throw createHttpError(401, "Other user not found");
